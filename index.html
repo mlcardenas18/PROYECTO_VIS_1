@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+  <title>Conflicto de Intereses?</title>
+  <meta charset="utf-8">
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@4.2.0/build/vega.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc6/build/vega-lite.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.19.2/build/vega-embed.js"></script>
+
+  <style media="screen">
+   /*Se adiciona espacios entre los enlaces Vega-Embed */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+    <h1></h1>
+    <h2></h2>
+    <p>
+    </p>
+  <!-- contendor de la visualización  -->
+<table style="width:100%" border=0>    
+     <tr>
+    <h4>Puede seleccionar un o varios congresistas con un click sostenido sobre la barra horizontal</h4>
+    <td><div id="vis1"></div>
+    </td> 
+    </tr> 
+ </table>
+    
+
+  <script>
+  // Se especifica las características de la visualización en el lenguaje de marcas en VegaLite
+var vlSpec1 ={
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/mlcardenas18/PROYECTO_VIS_1/master/data/datadetallada1.json",
+ "width": 600,
+  "height": 1600,
+  "padding": 5,
+    "format": {
+      "parse": {"valor_total_contratos": "number", "numero_contratos": "number"},
+      "type": "json"
+    }
+  },
+   "title": {
+    "text": "Conflicto de intereses ?",
+    "anchor": "start"
+    
+  },
+  "hconcat": [
+    {
+  "vconcat": [
+      {
+     "title": {
+    "text": "Monto Contratado por familiares de los congresistas",
+    "anchor": "Center",
+    "font":"20"
+  },
+ "width": 600,
+ "height": 200, 
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "aggregate": "sum",
+              "type": "quantitative",
+              "field": "valor_total_contratos",
+              "format":",",
+              "axis": {"title": "Monto contratación familiares (pesos)"}
+            },
+            "color": {
+              "condition": {"selection": "congresel", "value": "orange"},
+              "value": "steelblue"
+            },
+            "opacity": {"value": 0.8}
+          },
+          "selection": {
+            "congresel": {
+              "type": "interval",
+              "empty": "none",
+              "encodings": ["y"],
+              "on": "[mousedown, window:mouseup] > window:mousemove!",
+              "translate": "[mousedown, window:mouseup] > window:mousemove!",
+              "zoom": "wheel!",
+              "mark": {"fill": "#333", "fillOpacity": 0.125, "stroke": "white"},
+              "resolve": "global"
+            }
+          }
+        }
+      ],
+      "encoding": {
+        "y": {
+          "field": "Congresista",
+          "type": "nominal",
+          "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
+          "axis": {"title": "Congresista"}
+        }
+      }
+    }
+  ],
+  "config":  {"axisY": {"minExtent": 30},"axisX": {"maxExtent": 30}},
+  "text": {"baseline": "middle"}
+  } 
+]
+};
+  // Inserta la visualzación en el contendor con el id 'vis1'
+
+  vegaEmbed("#vis1", vlSpec1, {theme: 'fivethirtyeight', actions:false});
+  </script>
+
+</body>
+</html>
