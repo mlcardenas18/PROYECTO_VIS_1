@@ -35,9 +35,6 @@ var vlSpec1 ={
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "data": {
     "url": "https://raw.githubusercontent.com/mlcardenas18/PROYECTO_VIS_1/master/data/datadetallada1.json",
- "width": 600,
-  "height": 1600,
-  "padding": 5,
     "format": {
       "parse": {"valor_total_contratos": "number", "numero_contratos": "number"},
       "type": "json"
@@ -53,11 +50,11 @@ var vlSpec1 ={
   "vconcat": [
       {
      "title": {
-    "text": "Monto Contratado por familiares de los congresistas",
-    "anchor": "Center",
+    "text": "Monto Contratado por familiares de los congresistas años 2007 - 2018",
+    "anchor": "middle",
     "font":"20"
   },
- "width": 600,
+ "width": 500,
  "height": 200, 
       "layer": [
         {
@@ -66,7 +63,7 @@ var vlSpec1 ={
             "x": {
               "aggregate": "sum",
               "type": "quantitative",
-              "field": "valor_total_contratos",
+              "field": "valor_total_contratos",              
               "format":",",
               "axis": {"title": "Monto contratación familiares (pesos)"}
             },
@@ -74,7 +71,7 @@ var vlSpec1 ={
               "condition": {"selection": "congresel", "value": "orange"},
               "value": "steelblue"
             },
-            "opacity": {"value": 0.8}
+            "opacity": {"value": 3}
           },
           "selection": {
             "congresel": {
@@ -97,17 +94,60 @@ var vlSpec1 ={
           "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
           "axis": {"title": "Congresista"}
         }
-      }
-    }
-  ],
-  "config":  {"axisY": {"minExtent": 30},"axisX": {"maxExtent": 30}},
-  "text": {"baseline": "middle"}
-  } 
+      }      
+    }   
+  ] 
+  }, 
+   {
+
+ "width": 300,
+ "height": 200,  
+  "title": {
+    "text": "Número de familiares con contratos",
+    "anchor": "middle",
+    "font":"20"
+  },   
+  "layer": [{
+          "mark": "bar",
+          "encoding": {
+           "y": {"field": "Congresista", 
+           "type": "nominal",
+            "sort": {"op": "distinct", "field": "Contratista", "order": "descending"},
+          "axis": {"title": "Congresista"}
+           },
+    "x": {
+      "aggregate": "distinct",
+      "field": "Contratista",
+      "type": "quantitative",
+      "axis": {"title": "Número de familiares con contratos"}
+    },
+            "color": {
+              "condition": {"selection": "congresel", "value": "orange"},
+              "value": "steelblue"
+            },
+            "opacity": {"value": 3}
+          },"selection": {
+            "congresel": {
+              "type": "interval",
+              "empty": "none",
+              "encodings": ["y"],
+              "on": "[mousedown, window:mouseup] > window:mousemove!",
+              "translate": "[mousedown, window:mouseup] > window:mousemove!",
+              "zoom": "wheel!",
+              "mark": {"fill": "#333", "fillOpacity": 0.125, "stroke": "white"},
+              "resolve": "global"
+            }
+          }
+   }
+  ]
+
+        }
+  
 ]
 };
   // Inserta la visualzación en el contendor con el id 'vis1'
 
-  vegaEmbed("#vis1", vlSpec1, {theme: 'fivethirtyeight', actions:false});
+  vegaEmbed("#vis1", vlSpec1, {theme: null, actions:false});
   </script>
 
 </body>
