@@ -45,10 +45,8 @@ var vlSpec1 ={
     "anchor": "start"
     
   },
-  "hconcat": [
-    {
   "vconcat": [
-      {
+    {
      "title": {
     "text": "Monto Contratado por familiares de los congresistas años 2007 - 2018",
     "anchor": "middle",
@@ -95,11 +93,8 @@ var vlSpec1 ={
           "axis": {"title": "Congresista"}
         }
       }      
-    }   
-  ] 
-  }, 
-   {
-
+    },
+  { 
  "width": 300,
  "height": 200,  
   "title": {
@@ -138,11 +133,60 @@ var vlSpec1 ={
               "resolve": "global"
             }
           }
-   }
-  ]
+   }  
+  ]        
+},
+ {
+"width": 300,
+ "height": 200,  
+  "title": {
+    "text": "Distribucion contratación por familiar",
+    "anchor": "middle",
+    "font":"20"
+  },  
+   "transform": [{"filter": {"selection": "congresel"}}],
+  "mark": {"type": "bar", "color": "green"},
+  "encoding": {    
+    "x": {"aggregate": "sum",
+              "type": "quantitative",
+              "field": "valor_total_contratos",              
+              "format":",",
+              "axis": {"title": "Monto contratación (pesos)"}},
+    "y": {"field": "Contratista", "type": "nominal",
+  "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
+   "axis": {"title": "Familiar o Empresa familiar"},
+    "color":{
+              "condition": {"selection": "familiaresel", "value": "orange"},
+              "value": "steelblue"
+            },
+            "opacity": {"value": 3}
+    },
+  "color": {"field": "Congresista", "type": "nominal"}
+  },
+   "selection": {
+            "familiaresel": {
+              "type": "interval",
+              "empty": "none",
+              "encodings": ["y"],
+              "on": "[mousedown, window:mouseup] > window:mousemove!",
+              "translate": "[mousedown, window:mouseup] > window:mousemove!",
+              "zoom": "wheel!",
+              "mark": {"fill": "#333", "fillOpacity": 0.125, "stroke": "white"},
+              "resolve": "global"
+            }
+          }   
+  } ,
+  {
+   "transform": [{"filter": {"selection": "familiaresel"}}],
+"mark": {"type": "line", "color": "steelblue", "point": {"color": "orange"}},
+  "encoding": {
+    "x": {"field": "anios_como_contratista_numer", "type": "ordinal"},
+    "y": {"aggregate": "sum",
+              "type": "quantitative",
+              "field": "valor_total_contratos"}
+  }
 
-        }
-  
+  }
 ]
 };
   // Inserta la visualzación en el contendor con el id 'vis1'
