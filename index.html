@@ -177,13 +177,21 @@ var vlSpec1 ={
           }   
   } ,
   {
+"width": 300,
+ "height": 200,  
+  "title": {
+    "text": "Comportamiento de la contratación por año",
+    "anchor": "middle",
+    "font":"20"
+  }, 
    "transform": [{"filter": {"selection": "familiaresel"}}],
 "mark": {"type": "line", "color": "steelblue", "point": {"color": "orange"}},
   "encoding": {
-    "x": {"field": "anios_como_contratista_numer", "type": "ordinal"},
+    "x": {"field": "anios_como_contratista_numer", "type": "ordinal", "axis": {"title": "Años"}},
     "y": {"aggregate": "sum",
               "type": "quantitative",
-              "field": "valor_total_contratos"}
+              "field": "valor_total_contratos",
+          "axis": {"title": "Monto contratado"}}
   }
 
   }
