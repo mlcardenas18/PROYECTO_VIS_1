@@ -37,7 +37,7 @@ var vlSpec1 ={
     "url": "https://raw.githubusercontent.com/mlcardenas18/PROYECTO_VIS_1/master/data/datadetallada1.json",
     "format": {
       "parse": {"valor_total_contratos": "number", "numero_contratos": "number"},
-      "type": "json"
+       "type": "json"
     }
   },
    "title": {
@@ -166,7 +166,7 @@ var vlSpec1 ={
               "field": "valor_total_contratos",              
               "format":",",
               "axis": {"title": "Monto contratación (pesos)"}},
-    "y": {"field": "Contratista", "type": "nominal",
+    "y": {"field": "Contratista_Abrev", "type": "nominal",
   "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
    "axis": {"title": "Familiar o Empresa familiar"},
     "color":{
@@ -201,7 +201,10 @@ var vlSpec1 ={
    "transform": [{"filter": {"selection": "familiaresel"}}],
 "mark": {"type": "line", "color": "steelblue", "point": {"color": "orange"}},
   "encoding": {
-    "x": {"field": "anios_como_contratista_numer", "type": "ordinal", "axis": {"title": "Años"}},
+    "x": {"field": "fecha_contratos",
+     "type": "temporal",
+     "timeUnit": "year",   
+      "axis": {  "format":"%Y", "title": "Años"}},
     "y": {"aggregate": "sum",
               "type": "quantitative",
               "field": "valor_total_contratos",
