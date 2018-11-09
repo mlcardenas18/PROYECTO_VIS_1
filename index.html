@@ -21,8 +21,11 @@
     </p>
   <!-- contendor de la visualización  -->
 <table style="width:100%" border=0>    
-     <tr>
-    <h4>Puede seleccionar un o varios congresistas con un click sostenido sobre la barra horizontal</h4>
+    <tr>
+    <h5>Puede seleccionar uno o varios congresistas con un click sostenido sobre la barra horizontal en las gráficas 1 y 2</h5>
+    <h5>Para observar los montos contratados por los familiares, también puede seleccionarlos con un click sostenido sobre la barra horizontal en la gráfica 3</h5>
+    </tr>
+    <tr>
     <td><div id="vis1"></div>
     </td> 
     </tr> 
@@ -43,16 +46,15 @@ var vlSpec1 ={
    "title": {
     "text": "Conflicto de intereses ?",
     "anchor": "start"
-    
   },
   "hconcat": [
     {
    "vconcat": [
     {
      "title": {
-    "text": "Monto Contratado por familiares de los congresistas años 2007 - 2018",
+    "text": "1. Monto Contratado por familiares de los congresistas años 2007 - 2018",
     "anchor": "middle",
-    "font":"20"
+    "color": "Black"
   },
  "width": 450,
  "height": 200, 
@@ -102,9 +104,9 @@ var vlSpec1 ={
  "width": 300,
  "height": 200,  
   "title": {
-    "text": "Número de familiares con contratos",
-    "anchor": "middle",
-    "font":"20"
+    "text": "2. Número de familiares con contratos",
+    "anchor": "middle",    
+    "color": "Black"
   }, 
 
   "layer": [{
@@ -154,9 +156,9 @@ var vlSpec1 ={
  "width": 300,
  "height": 200,  
   "title": {
-    "text": "Distribucion contratación por familiar",
-    "anchor": "middle",
-    "font":"20"
+    "text": "3. Distribucion contratación por familiar",
+    "anchor": "middle",  
+    "color": "DarkBlue"
   },  
    "transform": [{"filter": {"selection": "congresel"}}],
   "mark": {"type": "bar", "color": "green"},
@@ -194,9 +196,10 @@ var vlSpec1 ={
 "width": 300,
  "height": 200,  
   "title": {
-    "text": "Comportamiento de la contratación por año",
+    "text": "4. Comportamiento de la contratación por año de los familiares seleccionados",
     "anchor": "middle",
-    "font":"20"
+    "color": "DarkBlue",
+    "padding": "80px"
   }, 
    "transform": [{"filter": {"selection": "familiaresel"}}],
 "mark": {"type": "line", "color": "steelblue", "point": {"color": "orange"}},
@@ -208,6 +211,7 @@ var vlSpec1 ={
     "y": {"aggregate": "sum",
               "type": "quantitative",
               "field": "valor_total_contratos",
+               "format":",",
           "axis": {"title": "Monto contratado"}}
   }
 
