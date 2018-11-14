@@ -61,8 +61,6 @@ var vlSpec1 ={
   },
  "width": 450,
  "height": 200, 
-      "layer": [
-        {      
           "mark": {"type":"bar"},
           "encoding": {
             "x": {
@@ -76,7 +74,13 @@ var vlSpec1 ={
               "condition": {"selection": "congresel", "value": "goldenrod"},
               "value": "steelblue"
             },
-            "opacity": {"value": 3}
+            "opacity": {"value": 3},
+           "y": {
+          "field": "Congresista",
+          "type": "nominal",
+          "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
+          "axis": {"title": "Congresista"}
+        }
           },
           "selection": {
             "congresel": {
@@ -90,21 +94,11 @@ var vlSpec1 ={
               "resolve": "global"
             }
           }
-        }
-      ],
-      "encoding": {
-        "y": {
-          "field": "Congresista",
-          "type": "nominal",
-          "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
-          "axis": {"title": "Congresista"}
-        }
-      }      
     },
   {
  "hconcat": [{
  
- "width": 300,
+ "width": 450,
  "height": 200,  
   "title": {
     "text": "3. Distribucion contratación por familiar",
@@ -116,7 +110,8 @@ var vlSpec1 ={
   "encoding": {    
     "x": {"aggregate": "sum",
               "type": "quantitative",
-              "field": "valor_total_contratos",              
+              "field": "valor_total_contratos",    
+              "scale": {"type":"sqrt"},          
               "format":",",
               "axis": {"title": "Monto contratación (pesos)"}},
     "y": {"field": "Contratista_Abrev", "type": "nominal",
@@ -162,7 +157,7 @@ var vlSpec1 ={
     "color": "Black"
   }, 
 
-  "layer": [{
+  
           "mark": "bar",
           "encoding": {
            "y": {"field": "Congresista", 
@@ -194,8 +189,6 @@ var vlSpec1 ={
               "resolve": "global"
             }
           }
-   }  
-  ] 
   }  ,
   {
 "width": 300,
