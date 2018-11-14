@@ -15,14 +15,15 @@
   </style>
 </head>
 <body>
-     <!-- contendor de la visualización  -->
+    <h1></h1>
+    <h2></h2>
+    <p>
+    </p>
+  <!-- contendor de la visualización  -->
 <table style="width:100%" border=0>    
     <tr>
-    <h2>Tip:</h2>
-    <p>
-     Para <b>explorar</b> la información del congresita o congesistas, en la gráfica <b>número uno o dos</b>, puede dar un <b>click sostenido</b> y <b>desplace</b> el <B>mous</B>e sobre la <B>barra o barras</B> del o de los congresistas de su elección.<br></br>
-     Así mismo, puede observar el <B>comporatamiento</B> de los montos contratados por los familiares de los congresistas,<B> seleccionando</B> el o los <B>familiares</B> en la gráfica número <B>tres.</B>
-    </p>   
+    <h5>Puede seleccionar uno o varios congresistas con un click sostenido sobre la barra horizontal en la gráfica número uno</h5>
+    <h5>Para observar los montos contratados por los familiares, también puede seleccionarlos con un click sostenido sobre la barra horizontal en la gráfica número tres</h5>
     </tr>
     <tr>
     <td><div id="vis1"></div>
@@ -58,13 +59,13 @@ var vlSpec1 ={
  "width": 450,
  "height": 200, 
       "layer": [
-        {
-          "mark": "bar",
+        {      
+          "mark": {"type":"bar"},
           "encoding": {
             "x": {
               "aggregate": "sum",
               "type": "quantitative",
-              "field": "valor_total_contratos",              
+              "field": "valor_total_contratos",                           "scale": {"type":"sqrt"},
               "format":",",
               "axis": {"title": "Monto contratación familiares (pesos)"}
             },
@@ -82,7 +83,7 @@ var vlSpec1 ={
               "on": "[mousedown, window:mouseup] > window:mousemove!",
               "translate": "[mousedown, window:mouseup] > window:mousemove!",
               "zoom": "wheel!",
-              "mark": {"fill": "#333", "fillOpacity": 0.125, "stroke": "white"},
+              "mark": {"fill": "#585858", "fillOpacity": 0.125, "stroke": "#cd619a"},
               "resolve": "global"
             }
           }
@@ -98,8 +99,58 @@ var vlSpec1 ={
       }      
     },
   {
- "hconcat": [
-  {  
+ "hconcat": [{
+ 
+ "width": 300,
+ "height": 200,  
+  "title": {
+    "text": "3. Distribucion contratación por familiar",
+    "anchor": "middle",  
+    "color": "DarkBlue"
+  },  
+   "transform": [{"filter": {"selection": "congresel"}}],
+  "mark": {"type": "bar", "color": "green"},
+  "encoding": {    
+    "x": {"aggregate": "sum",
+              "type": "quantitative",
+              "field": "valor_total_contratos",              
+              "format":",",
+              "axis": {"title": "Monto contratación (pesos)"}},
+    "y": {"field": "Contratista_Abrev", "type": "nominal",
+  "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
+   "axis": {"title": "Familiar o Empresa familiar"},
+    "color":{
+              "condition": {"selection": "familiaresel", "value": "orange"},
+              "value": "steelblue"
+            },
+            "opacity": {"value": 3}
+    },
+  "color": {"field": "Congresista", "type": "nominal","legend": {
+            "title": "Congresista"
+          }}
+  },
+   "selection": {
+            "familiaresel": {
+              "type": "interval",
+              "empty": "none",
+              "encodings": ["y"],
+              "on": "[mousedown, window:mouseup] > window:mousemove!",
+              "translate": "[mousedown, window:mouseup] > window:mousemove!",
+              "zoom": "wheel!",
+              "mark": {"fill": "#585858", "fillOpacity": 0.125, "stroke": "#01A9DB"},
+              "resolve": "global"
+            }
+          }
+  }
+
+ ] 
+
+  }
+  ]
+
+},
+{"vconcat": [
+     {  
  "width": 300,
  "height": 200,  
   "title": {
@@ -107,6 +158,7 @@ var vlSpec1 ={
     "anchor": "middle",    
     "color": "Black"
   }, 
+
   "layer": [{
           "mark": "bar",
           "encoding": {
@@ -141,53 +193,7 @@ var vlSpec1 ={
           }
    }  
   ] 
-  } 
- ] 
-  }
-  ]
-},
-{"vconcat": [
-   {
- 
- "width": 300,
- "height": 200,  
-  "title": {
-    "text": "3. Distribucion contratación por familiar",
-    "anchor": "middle",  
-    "color": "DarkBlue"
-  },  
-   "transform": [{"filter": {"selection": "congresel"}}],
-  "mark": {"type": "bar", "color": "green"},
-  "encoding": {    
-    "x": {"aggregate": "sum",
-              "type": "quantitative",
-              "field": "valor_total_contratos",              
-              "format":",",
-              "axis": {"title": "Monto contratación (pesos)"}},
-    "y": {"field": "Contratista_Abrev", "type": "nominal",
-  "sort": {"op": "sum", "field": "valor_total_contratos", "order": "descending"},
-   "axis": {"title": "Familiar o Empresa familiar"},
-    "color":{
-              "condition": {"selection": "familiaresel", "value": "orange"},
-              "value": "steelblue"
-            },
-            "opacity": {"value": 3}
-    },
-  "color": {"field": "Congresista", "type": "nominal"}
-  },
-   "selection": {
-            "familiaresel": {
-              "type": "interval",
-              "empty": "none",
-              "encodings": ["y"],
-              "on": "[mousedown, window:mouseup] > window:mousemove!",
-              "translate": "[mousedown, window:mouseup] > window:mousemove!",
-              "zoom": "wheel!",
-              "mark": {"fill": "#333", "fillOpacity": 0.125, "stroke": "white"},
-              "resolve": "global"
-            }
-          }   
-  } ,
+  }  ,
   {
 "width": 300,
  "height": 200,  
@@ -210,12 +216,15 @@ var vlSpec1 ={
                "format":",",
           "axis": {"title": "Monto contratado"}}
   }
+
   }
 ]
+
 }
 ]
 };
   // Inserta la visualzación en el contendor con el id 'vis1'
+
   vegaEmbed("#vis1", vlSpec1, {theme: null, actions:false});
   </script>
 
